@@ -52,10 +52,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   throwForce: 0
-  ball: {fileID: 0}
   ground: {fileID: 0}
+  cricketBall: {fileID: 0}
   coll: {fileID: 0}
   Pcoll: {fileID: 0}
   rb: {fileID: 0}
   secondMat: {fileID: 2100000, guid: 65ee08362a90c49a5a03efa7e988258b, type: 2}
-  ballTexture: {fileID: 0}
