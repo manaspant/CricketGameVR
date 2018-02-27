@@ -1,0 +1,14 @@
+﻿<Properties StartupConfiguration="{B159EEC2-9DAA-A50B-5112-F6BB84239767}|">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/proceduralManager.cs">
+    <Files>
+      <File FileName="Assets/proceduralManager.cs" Line="48" Column="13" />
+    </Files>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.ItemProperties.Cricket PreferredExecutionTarget="Unity.Editor" />
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <MultiItemStartupConfigurations />
+</Properties>
