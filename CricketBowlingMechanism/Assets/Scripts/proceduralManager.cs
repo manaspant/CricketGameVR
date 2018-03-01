@@ -15,9 +15,15 @@ public class proceduralManager : MonoBehaviour {
 
     public Material secondMat;
 
+	public float actualForce;
+	int ballCounter = 0;
+
+	float bowlerX = 1f;
+	float actualBX;
+
 	// Use this for initialization
 	void Start () {
-        throwForce = 10.0f;
+        throwForce = 2f;
         
 	}
 
@@ -34,41 +40,57 @@ public class proceduralManager : MonoBehaviour {
            
             ground = GameObject.Find("Plane");
 
-            cricketBall.transform.localScale = new Vector3(0.5F, 0.5F, 0.5F);
-            cricketBall.transform.position = new Vector3(1f, 4f, -4f);
+            //cricketBall.transform.localScale = new Vector3(0.5F, 0.5F, 0.5F);
+
+
 
             GameObject this_cricket_ball = Instantiate(cricketBall);
+			ballCounter += 1;
+
+			actualBX = bowlerX +Random.Range (-1f, 1f);
+			this_cricket_ball.transform.position = new Vector3(actualBX, 4f, -4f);
+
 
             //ball = GameObject.CreatePrimitive(PrimitiveType.Sphere);
             //cricketBall.AddComponent<Rigidbody>();
             //bowler = GameObject.CreatePrimitive(PrimitiveType.Cube);
             //bowler.transform.position = new Vector3(0f, 3f, 7f);
 
-            PhysicMaterial material = new PhysicMaterial();
+            // PhysicMaterial material = new PhysicMaterial();
             PhysicMaterial material1 = new PhysicMaterial();
 
             material1.dynamicFriction = 1;
-            material.bounciness = 1;
+            // material.bounciness = 1;
             material1.bounciness = 0.5F;
 
             Pcoll = ground.GetComponent<MeshCollider>();
             Pcoll.material = material1;
 
             coll = this_cricket_ball.GetComponent<SphereCollider>();
-            coll.material = material;
+            // coll.material = material;
 
             rb = this_cricket_ball.GetComponent<Rigidbody>();
             rb.angularDrag = 1F;
 
             //ball.GetComponent<Renderer>().material.mainTexture = ballTexture;
-            this_cricket_ball.GetComponent<Rigidbody>().AddForce(transform.forward * throwForce, ForceMode.Impulse);
-            this_cricket_ball.GetComponent<Rigidbody>().useGravity = true;
+			actualForce = throwForce + Random.Range(-0.2f, 0.2f);
+
+
 
             //if (rb.velocity.magnitude < 0.5)
             //{
             //    Destroy(ball);
 
             //}
+			if (ballCounter % 3 == 0) {
+				throwForce += 0.2f;
+			}
+			if (actualForce > 2f) {
+				actualForce = 2f;
+				Debug.Log ("Clamping actual force to " + actualForce);
+			}
+
+			this_cricket_ball.GetComponent<Rigidbody>().AddForce(transform.forward * actualForce, ForceMode.Impulse);
 
         }
 
