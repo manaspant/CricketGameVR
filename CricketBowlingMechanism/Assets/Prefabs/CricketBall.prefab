@@ -23,6 +23,7 @@ GameObject:
   - component: {fileID: 135327422535742398}
   - component: {fileID: 23562926438821258}
   - component: {fileID: 54301086805050118}
+  - component: {fileID: 114837421299669414}
   m_Layer: 0
   m_Name: CricketBall
   m_TagString: ball
@@ -99,6 +100,18 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &114837421299669414
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1884229669792272}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 23cbfcb552211dc468c9361eb9bdfe6a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pdp: {fileID: 0}
 --- !u!135 &135327422535742398
 SphereCollider:
   m_ObjectHideFlags: 1
