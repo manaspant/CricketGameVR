@@ -1030,6 +1030,10 @@ Prefab:
       propertyPath: m_TagString
       value: bat
       objectReference: {fileID: 0}
+    - target: {fileID: 4026894745882472, guid: 0d25a7def3b4b0e46b5c2a16f676f0f7, type: 2}
+      propertyPath: m_LocalScale.x
+      value: 1.7
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 0d25a7def3b4b0e46b5c2a16f676f0f7, type: 2}
   m_IsPrefabParent: 0

@@ -11,6 +11,7 @@ TagManager:
   - bat
   - wall
   - ScoreManager
+  - cricketBat
   layers:
   - Default
   - TransparentFX
