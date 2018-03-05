@@ -29,7 +29,12 @@ public class AudioManager : MonoBehaviour {
 		audios.Add ("Unstoppable", unstoppable);
 		audios.Add ("Youreout", youreout);
 
-		playSound ("Youreout");
+		if (Random.Range (0f, 10f) > 7f) {
+			
+			playSound ("GetReadyHigh");
+		} else {
+			playSound ("GetReadyLow");
+		}
 	}
 
 	public void playSound(string fileName){

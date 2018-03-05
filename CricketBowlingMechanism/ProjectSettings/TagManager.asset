@@ -10,6 +10,7 @@ TagManager:
   - ball
   - bat
   - wall
+  - ScoreManager
   layers:
   - Default
   - TransparentFX
