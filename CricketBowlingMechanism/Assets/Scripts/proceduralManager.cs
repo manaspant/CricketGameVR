@@ -21,94 +21,71 @@ public class proceduralManager : MonoBehaviour {
 	float bowlerX = 1f;
 	float actualBX;
 
-	// Use this for initialization
+
 	void Start () {
         throwForce = 2f;
         
 	}
 
-    void DestroyGameObject()
-    {
-        Destroy(gameObject);
-    }
+		
+	public void throwBall(){
+		//ballTexture = (Texture2D)Resources.Load("cricket-ball-texture-flat-background-regular-red-leather-pattern-52560591.jpg");
 
-    void FixedUpdate()
-    {
-        if (Input.GetMouseButtonDown(0))
-        {
-            //ballTexture = (Texture2D)Resources.Load("cricket-ball-texture-flat-background-regular-red-leather-pattern-52560591.jpg");
-           
-            ground = GameObject.Find("Plane");
+		ground = GameObject.Find("Plane");
 
-            //cricketBall.transform.localScale = new Vector3(0.5F, 0.5F, 0.5F);
+		//cricketBall.transform.localScale = new Vector3(0.5F, 0.5F, 0.5F);
 
 
 
-            GameObject this_cricket_ball = Instantiate(cricketBall);
-			ballCounter += 1;
+		GameObject this_cricket_ball = Instantiate(cricketBall);
+		ballCounter += 1;
 
-			actualBX = bowlerX +Random.Range (-1f, 1f);
-			this_cricket_ball.transform.position = new Vector3(actualBX, 4f, -4f);
-
-
-            //ball = GameObject.CreatePrimitive(PrimitiveType.Sphere);
-            //cricketBall.AddComponent<Rigidbody>();
-            //bowler = GameObject.CreatePrimitive(PrimitiveType.Cube);
-            //bowler.transform.position = new Vector3(0f, 3f, 7f);
-
-            // PhysicMaterial material = new PhysicMaterial();
-            PhysicMaterial material1 = new PhysicMaterial();
-
-            material1.dynamicFriction = 1;
-            // material.bounciness = 1;
-            material1.bounciness = 0.5F;
-
-            Pcoll = ground.GetComponent<MeshCollider>();
-            Pcoll.material = material1;
-
-            coll = this_cricket_ball.GetComponent<SphereCollider>();
-            // coll.material = material;
-
-            rb = this_cricket_ball.GetComponent<Rigidbody>();
-            rb.angularDrag = 1F;
-
-            //ball.GetComponent<Renderer>().material.mainTexture = ballTexture;
-			actualForce = throwForce + Random.Range(-0.2f, 0.2f);
+		actualBX = bowlerX +Random.Range (-1f, 1f);
+		this_cricket_ball.transform.position = new Vector3(actualBX, 4f, -4f);
 
 
+		//ball = GameObject.CreatePrimitive(PrimitiveType.Sphere);
+		//cricketBall.AddComponent<Rigidbody>();
+		//bowler = GameObject.CreatePrimitive(PrimitiveType.Cube);
+		//bowler.transform.position = new Vector3(0f, 3f, 7f);
 
-            //if (rb.velocity.magnitude < 0.5)
-            //{
-            //    Destroy(ball);
+		// PhysicMaterial material = new PhysicMaterial();
+		PhysicMaterial material1 = new PhysicMaterial();
 
-            //}
-			if (ballCounter % 3 == 0) {
-				throwForce += 0.2f;
-			}
-			if (actualForce > 2f) {
-				actualForce = 2f;
-				Debug.Log ("Clamping actual force to " + actualForce);
-			}
+		material1.dynamicFriction = 1;
+		// material.bounciness = 1;
+		material1.bounciness = 0.5F;
 
-			this_cricket_ball.GetComponent<Rigidbody>().AddForce(transform.forward * actualForce, ForceMode.Impulse);
+		Pcoll = ground.GetComponent<MeshCollider>();
+		Pcoll.material = material1;
 
-        }
+		coll = this_cricket_ball.GetComponent<SphereCollider>();
+		// coll.material = material;
 
-        if(Input.GetMouseButtonDown(1)){
-            // destroy all cricket balls on screen
-            // find them using GameObject.FindWithTag
-            //var sceneObjects = new List<GameObject>(GameObject.FindGameObjectsWithTag("ball"));
-            GameObject[] all_balls = GameObject.FindGameObjectsWithTag("ball");
+		rb = this_cricket_ball.GetComponent<Rigidbody>();
+		rb.angularDrag = 1F;
 
-            foreach (GameObject x in all_balls ){
-                Destroy(x);
-                
-            }
-        }
-    }
+		//ball.GetComponent<Renderer>().material.mainTexture = ballTexture;
+		actualForce = throwForce + Random.Range(-0.2f, 0.2f);
 
-    // Update is called once per frame
-    void Update () {
-        	
+		if (ballCounter % 3 == 0) {
+			throwForce += 0.2f;
+		}
+		if (actualForce > 2f) {
+			actualForce = 2f;
+			Debug.Log ("Clamping actual force to " + actualForce);
+		}
+
+		this_cricket_ball.GetComponent<Rigidbody>().AddForce(transform.forward * actualForce, ForceMode.Impulse);
+	}
+
+
+	public void destroyBalls(){
+		GameObject[] all_balls = GameObject.FindGameObjectsWithTag("ball");
+
+		foreach (GameObject x in all_balls ){
+			Destroy(x);
+
+		}
 	}
 }

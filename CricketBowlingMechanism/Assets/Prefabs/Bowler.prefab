@@ -21,7 +21,7 @@ GameObject:
   - component: {fileID: 4053993359666314}
   - component: {fileID: 114012393610456124}
   m_Layer: 0
-  m_Name: SceneManager
+  m_Name: Bowler
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -58,3 +58,4 @@ MonoBehaviour:
   Pcoll: {fileID: 0}
   rb: {fileID: 0}
   secondMat: {fileID: 2100000, guid: 65ee08362a90c49a5a03efa7e988258b, type: 2}
+  actualForce: 0

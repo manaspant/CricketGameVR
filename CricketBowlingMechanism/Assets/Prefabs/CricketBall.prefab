@@ -99,7 +99,7 @@ Rigidbody:
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 0
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
 --- !u!114 &114837421299669414
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -111,6 +111,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 23cbfcb552211dc468c9361eb9bdfe6a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  audio: {fileID: 0}
+  scoreboard: {fileID: 0}
+  splat: {fileID: 0}
   pdp: {fileID: 0}
 --- !u!135 &135327422535742398
 SphereCollider:
