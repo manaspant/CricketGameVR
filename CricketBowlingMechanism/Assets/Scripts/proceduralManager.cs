@@ -40,7 +40,7 @@ public class proceduralManager : MonoBehaviour {
 		GameObject this_cricket_ball = Instantiate(cricketBall);
 		ballCounter += 1;
 
-		actualBX = bowlerX +Random.Range (-1f, 1f);
+		actualBX = bowlerX +Random.Range (-0.2f, 0.2f);
 		this_cricket_ball.transform.position = new Vector3(actualBX, 4f, -4f);
 
 

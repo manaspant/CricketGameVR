@@ -1651,7 +1651,7 @@ ParticleSystem:
   moveWithTransform: 1
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: 324947447
+  randomSeed: -1586634496
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -5468,7 +5468,7 @@ MonoBehaviour:
   bowler: {fileID: 315396070}
   ballsPlayed: 0
   bowlingDelayTime: 1.5
-  gameLengthBalls: 5
+  gameLengthBalls: 100
 --- !u!4 &1566448343
 Transform:
   m_ObjectHideFlags: 0
@@ -5551,6 +5551,19 @@ Prefab:
     - target: {fileID: 54877782530429056, guid: 0d25a7def3b4b0e46b5c2a16f676f0f7,
         type: 2}
       propertyPath: m_Interpolate
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1458028737141302, guid: 0d25a7def3b4b0e46b5c2a16f676f0f7, type: 2}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 1844883378904668, guid: 0d25a7def3b4b0e46b5c2a16f676f0f7, type: 2}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 54877782530429056, guid: 0d25a7def3b4b0e46b5c2a16f676f0f7,
+        type: 2}
+      propertyPath: m_Mass
       value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents:

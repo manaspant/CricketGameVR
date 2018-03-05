@@ -8,6 +8,13 @@
         private float collisionForce = 0f;
         private float maxCollisionForce = 4000f;
         private VRTK_ControllerReference controllerReference;
+		GameObject bat_transform_holder;
+
+		void Start(){
+			bat_transform_holder = GameObject.Find ("bat_transform_holder");
+			transform.localPosition = bat_transform_holder.transform.position;
+			transform.localRotation = bat_transform_holder.transform.rotation;
+		}
 
         public float CollisionForce()
         {

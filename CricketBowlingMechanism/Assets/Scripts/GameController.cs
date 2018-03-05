@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using Valve.VR.InteractionSystem;
 public class GameController : MonoBehaviour {
 
 	// Job of this script is to initialize the game to a sensible starting state, control game flow and timing, and handle gameover plus game timing
@@ -16,6 +16,9 @@ public class GameController : MonoBehaviour {
 	public float bowlingDelayTime;		// How long after the readyForBall state is entered the bowler should release a ball. Floating point number of seconds.
 	public float gameLengthBalls; 		// How many balls long the game is
 
+//	private SteamVR_TrackedObject trackedObj;
+//	private SteamVR_Controller.Device Controller;
+
 	public enum GameState {
 		preGame,			// This would be for setup etc
 		waitForUserReady,	// Once everything is set up for the player to face a delivery, but they haven't indicated that they're ready for a ball yet
@@ -29,6 +32,10 @@ public class GameController : MonoBehaviour {
 
 	GameState gameState;
 
+//	void Awake(){
+//		trackedObj = GetComponent<SteamVR_TrackedObject> ();
+//	}
+
 	void Start () {
 		audio 			=	GameObject.Find ("AudioManager").GetComponent<AudioManager> ();
 		scoreboard 		=	GameObject.Find ("ScoreManager").GetComponent<ScoreManager> ();
@@ -39,6 +46,9 @@ public class GameController : MonoBehaviour {
 	}
 
 	void Update () {
+
+//		Get the Controller
+//		Controller = SteamVR_Controller.Input((int)trackedObj.index);
 
 //		// This is just for right now, during testing the rest of the malarkey
 //		if (Input.GetMouseButtonDown (0)) {
@@ -59,8 +69,8 @@ public class GameController : MonoBehaviour {
 		case GameState.waitForUserReady:
 			bowled = false;
 //			Debug.Log ("Ready to roll when you are, user");
-			if(Input.GetMouseButton(0)){
-				Debug.Log ("You clicked! bowling in the specified number of seconds");
+			if(Input.GetMouseButtonDown(0)){ // change to trigger
+				Debug.Log ("Trigger released");
 				setGameState (GameState.readyForBall);
 			}
 			break;
@@ -160,7 +170,7 @@ public class GameController : MonoBehaviour {
 			else {
 				// once we are assured there is a ball in play, check its velocity. If it is zero, it is dead. If not zero, then the ball is not dead
 				Vector3 ballVelocity = ball.GetComponent<Rigidbody>().velocity;
-				Debug.Log ("Ball velocity magnitude is " + ballVelocity.magnitude);
+				//Debug.Log ("Ball velocity magnitude is " + ballVelocity.magnitude);
 				if (ballVelocity.magnitude < 1f && ball.transform.position.y < 0.5f) { 
 					// If the velocity of the ball is 0 and it's basically on the ground. 
 					// If we only check velocity, then the ball will despawn at the peak of a curve// making random typing noises

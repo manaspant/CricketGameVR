@@ -24,6 +24,7 @@ GameObject:
   - component: {fileID: 23562926438821258}
   - component: {fileID: 54301086805050118}
   - component: {fileID: 114837421299669414}
+  - component: {fileID: 114684913136366820}
   m_Layer: 0
   m_Name: CricketBall
   m_TagString: ball
@@ -100,6 +101,22 @@ Rigidbody:
   m_Interpolate: 1
   m_Constraints: 0
   m_CollisionDetection: 2
+--- !u!114 &114684913136366820
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1884229669792272}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c00c0b8b32ab096449912788ed0cadc9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sendTriggerMessage: 0
+  layerMask:
+    serializedVersion: 2
+    m_Bits: 256
+  skinWidth: 0.1
 --- !u!114 &114837421299669414
 MonoBehaviour:
   m_ObjectHideFlags: 1
