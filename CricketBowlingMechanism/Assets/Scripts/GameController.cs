@@ -6,13 +6,15 @@ public class GameController : MonoBehaviour {
 
 	// Job of this script is to initialize the game to a sensible starting state, control game flow and timing, and handle gameover plus game timing
 
-	public proceduralManager bowler; 			// procedural Manager is a bad name for this script, but on a schedule as tight as ours, I am NOT going to go through and refactor stuff if it runs fine.
+	public ScoreManager scoreboard;
+	public AudioManager audio;
+	public proceduralManager bowler;	// procedural Manager is a bad name for this script, but on a schedule as tight as ours, I am NOT going to go through and refactor stuff if it runs fine.
 										// so when you're reading this code, if you see procedural manager, think "bowler"
-
-
-
-	public float bowlingDelayTime;		// How long after the readyForBall state is entered the bowler should release a ball
-
+	public int ballsPlayed;
+	bool bowled;
+	bool playedGameOverSound;
+	public float bowlingDelayTime;		// How long after the readyForBall state is entered the bowler should release a ball. Floating point number of seconds.
+	public float gameLengthBalls; 		// How many balls long the game is
 
 	public enum GameState {
 		preGame,			// This would be for setup etc
@@ -28,53 +30,114 @@ public class GameController : MonoBehaviour {
 	GameState gameState;
 
 	void Start () {
+		audio 			=	GameObject.Find ("AudioManager").GetComponent<AudioManager> ();
+		scoreboard 		=	GameObject.Find ("ScoreManager").GetComponent<ScoreManager> ();
 
+		setGameState (GameState.waitForUserReady);
+		ballsPlayed = 0;
+		playedGameOverSound = false;
 	}
 
 	void Update () {
 
-		if (Input.GetMouseButtonDown (0)) {
-			bowler.throwBall ();
-		}
-		if (Input.GetMouseButtonDown (1)) {
-			bowler.destroyBalls ();
-		}
-//		Debug.Log ("Game State is " + gameState);
-//
-//		switch (gameState) {
-//		case GameState.preGame:
-//			Debug.Log ("Pre game stuff");
-//			break;
-//		case GameState.waitForUserReady:
-//			Debug.Log ("Ready to roll when you are, user");
-//			break;
-//		case GameState.readyForBall:
-//			Debug.Log ("Okay let's wind up and bowl!");
-//			break;
-//		case GameState.ballReleased:
-//			Debug.Log ("released!");
-//			break;
-//		case GameState.ballBatted:
-//			Debug.Log ("Ball has been hit, let's see what to do now");
-//			break;
-//		case GameState.gameOver:
-//			Debug.Log ("Game over!");
-//			break;
+//		// This is just for right now, during testing the rest of the malarkey
+//		if (Input.GetMouseButtonDown (0)) {
+//			bowler.throwBall ();
 //		}
+//		if (Input.GetMouseButtonDown (1)) {
+//			bowler.destroyBalls ();
+//		}
+
+		checkGameOver ();
+
+		Debug.Log ("Game State is " + gameState);
+		Debug.Log ("Balls bowled: " + ballsPlayed);
+		switch (gameState) {
+		case GameState.preGame:
+			Debug.Log ("Pre game stuff");
+			break;
+		case GameState.waitForUserReady:
+			bowled = false;
+//			Debug.Log ("Ready to roll when you are, user");
+			if(Input.GetMouseButton(0)){
+				Debug.Log ("You clicked! bowling in the specified number of seconds");
+				setGameState (GameState.readyForBall);
+			}
+			break;
+		case GameState.readyForBall:
+//			Debug.Log ("Okay let's wind up and bowl!");
+			StartCoroutine (bowlAfterDelay (bowlingDelayTime));
+			break;
+		case GameState.ballReleased:
+//			Debug.Log ("released!");
+			break;
+		case GameState.ballBatted:
+//			Debug.Log ("Ball has been hit, let's see what to do now");
+			int deadness = handleDeadBall ();
+			if (deadness == 1) {
+				ballsPlayed++;
+				checkGameOver ();
+//				Debug.Log ("Ball died, going back into the waitforready state");
+				setGameState (GameState.waitForUserReady);
+			}
+			break;
+		case GameState.gameOver:
+			Debug.Log ("Game over! Press R to restart");
+			Debug.Log ("Your final score was " + scoreboard.getRuns () + " multiplied by a multiplier of " + scoreboard.getMultiplier () + " which is " + scoreboard.getRuns () * scoreboard.getMultiplier ());
+			StartCoroutine (playGameOverSound ());
+			break;
+		default:
+			Debug.Log ("Something went terribly wrong");
+			break;
+		}
 
 	}
 
 
 
 
-	public void setGameState(GameState newState){
+	void setGameState(GameState newState){
 		gameState = newState;
 	}
 
-//	public void bowlAfterDelay(float delayTime){
-//		bowler.throwBall ();
-//	}
+	// a public function so we can set game state from the ball as well, so ball can set the gamestate when it destroys itself
+	public void askForGameState(int statenumber){
+		switch (statenumber) {
+		case 1:
+			setGameState (GameState.preGame);
+			break;
+		case 2:
+			setGameState (GameState.waitForUserReady);
+			break;
+		case 3:
+			setGameState (GameState.readyForBall);
+			break;
+		case 4:
+			setGameState (GameState.ballReleased);
+			break;
+		case 5:
+			setGameState (GameState.ballBatted);
+			break;
+		case 6:
+			setGameState (GameState.gameOver);
+			break;
+		default:
+			Debug.Log ("You sent in an invalid game state change request");
+			break;
+		}
+	}
 
+
+	public IEnumerator bowlAfterDelay(float delayTime){
+		yield return new WaitForSeconds (delayTime);
+		if (!bowled) {
+			bowler.throwBall ();
+			bowled = true;
+//			ballsPlayed++;
+			setGameState (GameState.ballReleased);
+		}
+
+	}
 
 
 
@@ -97,13 +160,16 @@ public class GameController : MonoBehaviour {
 			else {
 				// once we are assured there is a ball in play, check its velocity. If it is zero, it is dead. If not zero, then the ball is not dead
 				Vector3 ballVelocity = ball.GetComponent<Rigidbody>().velocity;
-				if (ballVelocity == Vector3.zero) {
+				Debug.Log ("Ball velocity magnitude is " + ballVelocity.magnitude);
+				if (ballVelocity.magnitude < 1f && ball.transform.position.y < 0.5f) { 
+					// If the velocity of the ball is 0 and it's basically on the ground. 
+					// If we only check velocity, then the ball will despawn at the peak of a curve// making random typing noises
 					Debug.Log ("Ball is dead!");
 					Destroy(ball);
 					return 1;
 				} 
 				else {
-					Debug.Log ("Ball is not yet dead (it can dance and it can sing)");
+//					Debug.Log ("Ball is not yet dead (it can dance and it can sing)");
 					return 0;
 				}
 			}
@@ -116,6 +182,22 @@ public class GameController : MonoBehaviour {
 	}
 	/* End of handleDeadBall declaration */
 
+	public void checkGameOver(){
+		if (ballsPlayed == gameLengthBalls) {
+			setGameState (GameState.gameOver);
+		}
+	}
 
+	IEnumerator playGameOverSound(){
+		Debug.Log ("Inside ienumerator");
+		yield return new WaitForSeconds (2f);
+		if (!playedGameOverSound) {
+			Debug.Log ("AAAAAAAAAAAAA");
+			Debug.Log ("Playing game over sound");
+			audio.playSound ("GameOver");
+			playedGameOverSound = true;
+		}
+
+	}
 
 }

@@ -39,8 +39,8 @@ public class ScoreManager : MonoBehaviour {
 	}
 
 	void Update(){
-		Debug.Log ("Score is " + runs);
-		Debug.Log ("Multiplier is " + multiplier);
+//		Debug.Log ("Score is " + runs);
+//		Debug.Log ("Multiplier is " + multiplier);
 	}
 
 	public int getRuns(){
