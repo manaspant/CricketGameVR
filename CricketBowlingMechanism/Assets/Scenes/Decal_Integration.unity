@@ -5463,11 +5463,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7588e01cf6265ed44869bc225cd010fd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  scoreboard: {fileID: 0}
   audio: {fileID: 0}
   bowler: {fileID: 315396070}
   ballsPlayed: 0
   bowlingDelayTime: 1.5
-  gameLengthBalls: 12
+  gameLengthBalls: 5
 --- !u!4 &1566448343
 Transform:
   m_ObjectHideFlags: 0
