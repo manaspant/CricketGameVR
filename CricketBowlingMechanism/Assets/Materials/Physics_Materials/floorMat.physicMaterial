@@ -8,6 +8,6 @@ PhysicMaterial:
   m_Name: floorMat
   dynamicFriction: 2
   staticFriction: 2
-  bounciness: 0.2
+  bounciness: 0.4
   frictionCombine: 0
   bounceCombine: 0

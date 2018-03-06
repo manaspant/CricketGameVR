@@ -11,7 +11,7 @@
 		GameObject bat_transform_holder;
 
 		void Start(){
-			bat_transform_holder = GameObject.Find ("bat_transform_holder");
+			bat_transform_holder = GameObject.Find ("alt_pos_bat");
 			transform.localPosition = bat_transform_holder.transform.position;
 			transform.localRotation = bat_transform_holder.transform.rotation;
 		}
