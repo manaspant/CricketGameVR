@@ -73,7 +73,7 @@ public class proceduralManager : MonoBehaviour {
 		}
 		if (actualForce > 2f) {
 			actualForce = 2f;
-			Debug.Log ("Clamping actual force to " + actualForce);
+//			Debug.Log ("Clamping actual force to " + actualForce);
 		}
 
 		this_cricket_ball.GetComponent<Rigidbody>().AddForce(transform.forward * actualForce, ForceMode.Impulse);

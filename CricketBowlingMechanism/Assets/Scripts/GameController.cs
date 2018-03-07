@@ -60,17 +60,18 @@ public class GameController : MonoBehaviour {
 
 		checkGameOver ();
 
-		Debug.Log ("Game State is " + gameState);
-		Debug.Log ("Balls bowled: " + ballsPlayed);
+//		Debug.Log ("Game State is " + gameState);
+//		Debug.Log ("Balls bowled: " + ballsPlayed);
 		switch (gameState) {
 		case GameState.preGame:
-			Debug.Log ("Pre game stuff");
+//			Debug.Log ("Pre game stuff");
 			break;
 		case GameState.waitForUserReady:
 			bowled = false;
 //			Debug.Log ("Ready to roll when you are, user");
 			if(Input.GetMouseButtonDown(0)){ // change to trigger
-				Debug.Log ("Trigger released");
+				Debug.Log("This should only happen on mouseclick");
+//				Debug.Log ("Trigger released");
 				setGameState (GameState.readyForBall);
 			}
 			break;
@@ -92,8 +93,8 @@ public class GameController : MonoBehaviour {
 			}
 			break;
 		case GameState.gameOver:
-			Debug.Log ("Game over! Press R to restart");
-			Debug.Log ("Your final score was " + scoreboard.getRuns () + " multiplied by a multiplier of " + scoreboard.getMultiplier () + " which is " + scoreboard.getRuns () * scoreboard.getMultiplier ());
+//			Debug.Log ("Game over! Press R to restart");
+//			Debug.Log ("Your final score was " + scoreboard.getRuns () + " multiplied by a multiplier of " + scoreboard.getMultiplier () + " which is " + scoreboard.getRuns () * scoreboard.getMultiplier ());
 			StartCoroutine (playGameOverSound ());
 			break;
 		default:
@@ -141,8 +142,9 @@ public class GameController : MonoBehaviour {
 	public IEnumerator bowlAfterDelay(float delayTime){
 		yield return new WaitForSeconds (delayTime);
 		if (!bowled) {
-			bowler.throwBall ();
 			bowled = true;
+			Debug.Log ("We bowl now");
+			bowler.throwBall ();
 //			ballsPlayed++;
 			setGameState (GameState.ballReleased);
 		}
@@ -199,11 +201,11 @@ public class GameController : MonoBehaviour {
 	}
 
 	IEnumerator playGameOverSound(){
-		Debug.Log ("Inside ienumerator");
+//		Debug.Log ("Inside ienumerator");
 		yield return new WaitForSeconds (2f);
 		if (!playedGameOverSound) {
-			Debug.Log ("AAAAAAAAAAAAA");
-			Debug.Log ("Playing game over sound");
+//			Debug.Log ("AAAAAAAAAAAAA");
+//			Debug.Log ("Playing game over sound");
 			audio.playSound ("GameOver");
 			playedGameOverSound = true;
 		}
