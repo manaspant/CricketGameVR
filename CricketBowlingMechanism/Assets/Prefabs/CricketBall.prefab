@@ -117,6 +117,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 256
   skinWidth: 0.1
+  vel: {x: 0, y: 0, z: 0}
 --- !u!114 &114837421299669414
 MonoBehaviour:
   m_ObjectHideFlags: 1
